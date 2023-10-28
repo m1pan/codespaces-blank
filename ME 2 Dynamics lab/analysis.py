@@ -28,6 +28,5 @@ with open('X2sv00009.txt') as f:
         damped4.append((float(line.split(' ')[0]),float(line.split(' ')[-1])))
 
 
-print(damped1[:])
-
+plt.plot([i[0] for i in damped1], [i[1] for i in damped1])
 # %%
