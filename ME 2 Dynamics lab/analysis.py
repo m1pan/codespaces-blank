@@ -1,7 +1,6 @@
-# %%
-import numpy as np
 import csv as c
 from itertools import islice
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -29,5 +28,4 @@ with open('X2sv00009.txt') as f:
 
 
 plt.plot([i[0] for i in damped1], [i[1] for i in damped1])
-'test'
-# %%
+plt.show()
