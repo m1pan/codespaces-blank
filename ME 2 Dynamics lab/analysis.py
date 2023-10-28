@@ -29,4 +29,5 @@ with open('X2sv00009.txt') as f:
 
 
 plt.plot([i[0] for i in damped1], [i[1] for i in damped1])
+'test'
 # %%
