@@ -2,36 +2,27 @@ from itertools import islice
 import numpy as np
 import matplotlib.pyplot as plt
 
+#number of readings
+GAP = 4096
 
 #read in damped data
 def readfile(file):
-    damped1 = []
-with open('X2sv00006.txt') as f:
-    for line in islice(f,9,None):
-        damped1.append([float(line.split(' ')[0]),float(line.split(' ')[-1])])
+    """reads file and inputs data into a nested list"""
+    tmp = []
+    with open(file,'r') as f:
+        for line in islice(f,9,None):
+            tmp.append([float(line.split(' ')[0]),float(line.split(' ')[-1])])
+    return tmp
 
-damped1 = []
-with open('X2sv00006.txt') as f:
-    for line in islice(f,9,None):
-        damped1.append([float(line.split(' ')[0]),float(line.split(' ')[-1])])
-
-damped2 = []
-with open('X2sv00007.txt') as f:
-    for line in islice(f,9,None):
-        damped2.append([float(line.split(' ')[0]),float(line.split(' ')[-1])])
+damp = np.empty((4,4096,2))
 
 
-damped3 = []
-with open('X2sv00008.txt') as f:
-    for line in islice(f,9,None):
-        damped3.append([float(line.split(' ')[0]),float(line.split(' ')[-1])])
+for i in range(0,4):
+    tmp = readfile(f'X2sv0000{i+6}.txt')
+    for j in range(0,GAP):
+        damp[i,j,0] = tmp[j][0]
+        damp[i,j,1] = tmp[j][1]
 
-damped4 = []
-with open('X2sv00009.txt') as f:
-    for line in islice(f,9,None):
-        damped4.append([float(line.split(' ')[0]),float(line.split(' ')[-1])])
-
-damp = np.array([damped1, damped2, damped3, damped4])
 
 for j in range(0,4):
     plt.plot([i[0] for i in damp[j]], [i[1] for i in damp[j]])
@@ -39,4 +30,3 @@ for j in range(0,4):
     plt.ylabel("Acceleration / ms^-2")
     plt.xticks(np.arange(0, 16+0.5, 0.5))
     plt.yticks(np.arange(-16,17,1))
-    plt.show()
