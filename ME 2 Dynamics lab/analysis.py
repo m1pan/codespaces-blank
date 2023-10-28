@@ -1,3 +1,4 @@
+# %%
 import numpy as np
 import csv as c
 from itertools import islice
@@ -7,23 +8,26 @@ import matplotlib.pyplot as plt
 #read in damped data
 damped1 = []
 with open('X2sv00006.txt') as f:
-    for line in islice(f,10,None):
+    for line in islice(f,9,None):
         damped1.append((float(line.split(' ')[0]),float(line.split(' ')[-1])))
 
 damped2 = []
 with open('X2sv00007.txt') as f:
-    for line in islice(f,10,None):
+    for line in islice(f,9,None):
         damped2.append((float(line.split(' ')[0]),float(line.split(' ')[-1])))
+
 
 damped3 = []
 with open('X2sv00008.txt') as f:
-    for line in islice(f,10,None):
+    for line in islice(f,9,None):
         damped3.append((float(line.split(' ')[0]),float(line.split(' ')[-1])))
 
 damped4 = []
 with open('X2sv00009.txt') as f:
-    for line in islice(f,10,None):
+    for line in islice(f,9,None):
         damped4.append((float(line.split(' ')[0]),float(line.split(' ')[-1])))
-        
-plt.plot(damped1[:][0], damped1[:][1])
-plt.show()
+
+
+print(damped1[:])
+
+# %%
