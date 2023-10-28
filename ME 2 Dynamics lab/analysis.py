@@ -1,6 +1,7 @@
 import numpy as np
 import csv as c
 from itertools import islice
+import matplotlib.pyplot as plt
 
 
 #read in damped data
@@ -24,3 +25,5 @@ with open('X2sv00009.txt') as f:
     for line in islice(f,10,None):
         damped4.append((float(line.split(' ')[0]),float(line.split(' ')[-1])))
         
+plt.plot(damped1[:][0], damped1[:][1])
+plt.show()
