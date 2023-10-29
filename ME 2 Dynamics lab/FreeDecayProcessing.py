@@ -9,7 +9,7 @@ import seaborn
 import numpy as np
 
 
-f = open("Free12.txt")
+f = open("X2sv00006.txt")
 a = f.readlines()
 f.close()
 A = []
