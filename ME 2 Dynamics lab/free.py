@@ -1,9 +1,12 @@
 from itertools import islice
+from math import fsum
 import numpy as np
 import matplotlib.pyplot as plt
 
 # number of readings
 GAP = 4096
+
+# time interval between each reading, 16s recordings
 interval = 1/256
 
 # function to read in damped data
@@ -35,14 +38,16 @@ def trough(dataArray,j):
     return troughs
 
 # initialise empty array for data
-damp = np.empty((4,4096,2))
+damp = np.empty((4,GAP,2))
 
 # read in damped data
 for i in range(0,4):
     tmp = readfile(f'X2sv0000{i+6}.txt')
+    noise = [i[1] for i in tmp[:9]]
+    offset = fsum(noise)/len(noise)
     for j in range(0,GAP):
         damp[i,j,0] = tmp[j][0]
-        damp[i,j,1] = tmp[j][1]
+        damp[i,j,1] = tmp[j][1]-offset
 
 # plotting the graphs
 # for j in range(0,4):
