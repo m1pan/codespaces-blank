@@ -66,3 +66,17 @@ for i in range(1,5):
     peaks.append(peak(damp,i))
     troughs.append(trough(damp,i))
 
+periods = []
+deltas = []
+for i in range(0,4):
+    for j in range(len(peaks[i])-1):
+        periods += [peaks[i][j+1][0] - peaks[i][j][0]]
+        deltas += [np.log(peaks[i][j][1]/peaks[i][j+1][1])]
+T = fsum(periods)/len(periods)
+delta = fsum(deltas)/len(deltas)
+wd = 2*np.pi/T
+dampratio = delta/(2*np.pi)
+wn = wd/np.sqrt(1-dampratio**2)
+print(T)
+print(dampratio)
+print(wn)
