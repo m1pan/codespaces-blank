@@ -41,7 +41,7 @@ damp = np.empty((4,GAP,2))
 # read in damped data
 for i in range(0,4):
     tmp = readfile(f'X2sv0000{i+6}.txt')
-    noise = [i[1] for i in tmp[:9]]
+    noise = [m[1] for m in tmp[:9]]
     offset = fsum(noise)/len(noise)
     for j in range(0,GAP):
         damp[i,j,0] = tmp[j][0]
@@ -55,26 +55,28 @@ for i in range(1,5):
     peaks.append(peak(damp,i))
     troughs.append(trough(damp,i))
 
-periods = []
-deltas = []
+periods = [[],[],[],[]]
+deltas = [[],[],[],[]]
 for i in range(0,4):
     for j in range(len(peaks[i])-1):
-        periods += [peaks[i][j+1][0] - peaks[i][j][0]]
-        deltas += [np.log(peaks[i][j][1]/peaks[i][j+1][1])]
-T = fsum(periods)/len(periods)
-delta = fsum(deltas)/len(deltas)
-wd = 2*np.pi/T
-dampratio = delta/(2*np.pi)
-wn = wd/np.sqrt(1-dampratio**2)
-print(T)
-print(dampratio)
-print(wn)
+        periods[i] += [peaks[i][j+1][0] - peaks[i][j][0]]
+        deltas[i] += [np.log(peaks[i][j][1]/peaks[i][j+1][1])]
+T = [fsum(m)/len(m) for m in periods]
+delta = [fsum(n)/len(n) for n in deltas]
+wd = [2*np.pi/t for t in T]
+dampratio = [d/(2*np.pi) for d in delta]
+wn = [wd[i]/np.sqrt(1-dampratio[i]**2) for i in range(4)]
+print(delta,fsum(delta)/4)
+print(dampratio,fsum(dampratio)/4)
+print(wd,fsum(wd)/4)
+print(wn,fsum(wn)/4)
+
 
 # plotting the graphs
-for j in range(0,4):
-    plt.plot([i[0] for i in damp[j]], [i[1] for i in damp[j]])
-    plt.xlabel("Time / s")
-    plt.ylabel("Acceleration / ms^-2")
-    plt.xticks(np.arange(0, 16+0.5, 0.5))
-    plt.yticks(np.arange(-16,17,1))
-    plt.show()
+# for j in range(0,4):
+#     plt.plot([i[0] for i in damp[j]], [i[1] for i in damp[j]])
+#     plt.xlabel("Time / s")
+#     plt.ylabel("Acceleration / ms^-2")
+#     plt.xticks(np.arange(0, 16+0.5, 0.5))
+#     plt.yticks(np.arange(-16,17,1))
+#     plt.show()
