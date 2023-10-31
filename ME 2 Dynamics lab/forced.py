@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 # number of readings
 GAP = 4096
 
-# time INTERVAL between each reading, 20s recordings
-INTERVAL = 5/1024
+# time INTERVAL between each reading, 2s recordings
+INTERVAL = 1/2048
 
 # function to read in damped data
 def readfile(file):
@@ -81,19 +81,19 @@ for k,v in fpeaks.items():
 phaseshift = {10:[], 12:[],13:[],14:[],15:[],16:[],18:[],20:[],14.5:[]}
 for k,v in shifts.items():
     phaseshift[k] = fsum(v)/len(v)
-print(Tf[10][:10])
+print(phaseshift)
 
 
 
 
-fig, ax = plt.subplots(2,1)
+# fig, ax = plt.subplots(2,1)
 
-ax[0].plot([i[0] for i in data[10]],[i[1] for i in data[10]],color='b')
-ax[0].set_xlabel('Time / s')
-ax[0].set_ylabel('Force (N)')
+# ax[0].plot([i[0] for i in data[10]],[i[1] for i in data[10]],color='b')
+# ax[0].set_xlabel('Time / s')
+# ax[0].set_ylabel('Force (N)')
 
-ax[1].plot([i[0] for i in data[10]], [i[2] for i in data[10]],color='r')
-ax[1].set_xlabel('Time / s')
-ax[1].set_ylabel('Acceleration / ms^-2')
+# ax[1].plot([i[0] for i in data[10]], [i[2] for i in data[10]],color='r')
+# ax[1].set_xlabel('Time / s')
+# ax[1].set_ylabel('Acceleration / ms^-2')
 
-plt.show()
+# plt.show()
